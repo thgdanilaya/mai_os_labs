@@ -28,17 +28,16 @@ int main() {
         read(pipefd[0], &numbersSize, sizeof(int));
         int result;
         int buff;
-        int current;
         for (int i = 0; i < numbersSize; ++i) {
             if (i == 0) {
                 read(pipefd[0], &buff, sizeof(int));
+                result = buff;
             } else {
-                read(pipefd[0], &current, sizeof(int));
-                if (current == 0) {
+                read(pipefd[0], &buff, sizeof(int));
+                if (buff == 0) {
                     exit(-1);
                 } else {
-                    result = buff / current;
-                    buff = current;
+                    result /= buff;   
                 }
             }
         }
